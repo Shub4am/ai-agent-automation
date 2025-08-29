@@ -1,0 +1,21 @@
+{
+  "name": "ai-agent-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.0",
+  "dependencies": {
+    "@openai/agents": "^0.1.0",
+    "dotenv": "^17.2.1",
+    "openai": "^5.16.0",
+    "puppeteer": "^24.17.1",
+    "zod": "^3.25.76"
+  }
+}
