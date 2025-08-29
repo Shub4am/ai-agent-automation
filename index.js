@@ -12,6 +12,7 @@ import puppeteer from "puppeteer";
 import fs from "fs"
 import { z } from "zod";
 import { OpenAI } from "openai";
+import readline from "readline";
 
 // const agent = new Agent({
 //     name: 'History Tutor',
@@ -27,14 +28,54 @@ dotenv.config();
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-const browser = await puppeteer.launch({
-    headless: false,
-    executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-    args: ["--start-maximized", "--no-sandbox", "--disable-extensions", "--disable-file-system"],
-    defaultViewport: null
-})
+function getUserInput(question) {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
 
-const page = await browser.newPage();
+    return new Promise((resolve) => {
+        rl.question(question, (answer) => {
+            rl.close();
+            resolve(answer);
+        });
+    });
+}
+
+let browser;
+let page;
+
+async function collectFormData() {
+    console.log('\n🔗 Please enter the website URL and form details:\n');
+
+    const url = await getUserInput('Enter the website URL: ');
+    const firstName = await getUserInput('Enter First Name: ');
+    const lastName = await getUserInput('Enter Last Name: ');
+    const fullName = await getUserInput('Enter Full Name: ');
+    const username = await getUserInput('Enter Username: ');
+    const email = await getUserInput('Enter Email: ');
+    const password = await getUserInput('Enter Password: ');
+    const confirmPassword = await getUserInput('Enter Confirm Password: ');
+
+    browser = await puppeteer.launch({
+        headless: false,
+        executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        args: ["--start-maximized", "--no-sandbox", "--disable-extensions", "--disable-file-system"],
+        defaultViewport: null
+    })
+    page = await browser.newPage();
+
+    return {
+        url,
+        firstName,
+        lastName,
+        fullName,
+        username,
+        email,
+        password,
+        confirmPassword
+    };
+}
 
 const client = new OpenAI();
 const modelProvider = new OpenAIProvider({
@@ -360,13 +401,26 @@ async function chatWithAgent(query) {
     }
 }
 
-chatWithAgent(`
-Go to https://ui.chaicode.com/auth/signup and fill the form with:
-- First Name: Bruce
-- Last Name: Wayne
-- Email: test@example.com
-- Password: Qwerty@123
-- Confirm Password: Qwerty@123
+async function main() {
+    try {
+        const formData = await collectFormData();
+        const query = `
+Go to ${formData.url} and fill the form with:
+- First Name: ${formData.firstName}
+- Last Name: ${formData.lastName}
+- Full Name: ${formData.fullName}
+- Username: ${formData.username}
+- Email: ${formData.email}
+- Password: ${formData.password}
+- Confirm Password: ${formData.confirmPassword}
 Fill each field ONE AT A TIME and take a screenshot after each field to verify it was populated correctly.
 Then click the "Create Account" button and take a final screenshot.
-`);
+`;
+        await chatWithAgent(query);
+    } catch (error) {
+        console.error('Error in main execution:', error);
+        await browser.close();
+    }
+}
+
+main();
