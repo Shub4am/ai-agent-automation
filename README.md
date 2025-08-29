@@ -86,7 +86,7 @@ The script will launch Chrome, navigate to the target page, fill out the form, a
 
 ## Video Demo
 
-[Video Link](https://youtu.be/YoewXoeA9Tk)
+[Video Link](https://youtu.be/ZpLhp20w3es)
 
 ## License
 MIT
