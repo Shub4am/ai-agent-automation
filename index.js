@@ -51,8 +51,8 @@ async function collectFormData() {
     const url = await getUserInput('Enter the website URL: ');
     const firstName = await getUserInput('Enter First Name: ');
     const lastName = await getUserInput('Enter Last Name: ');
-    const fullName = await getUserInput('Enter Full Name: ');
-    const username = await getUserInput('Enter Username: ');
+    // const fullName = await getUserInput('Enter Full Name: ');
+    // const username = await getUserInput('Enter Username: ');
     const email = await getUserInput('Enter Email: ');
     const password = await getUserInput('Enter Password: ');
     const confirmPassword = await getUserInput('Enter Confirm Password: ');
@@ -69,8 +69,8 @@ async function collectFormData() {
         url,
         firstName,
         lastName,
-        fullName,
-        username,
+        // fullName,
+        // username,
         email,
         password,
         confirmPassword
@@ -401,6 +401,9 @@ async function chatWithAgent(query) {
     }
 }
 
+// - Full Name: ${ formData.fullName }
+// - Username: ${ formData.username }
+
 async function main() {
     try {
         const formData = await collectFormData();
@@ -408,8 +411,6 @@ async function main() {
 Go to ${formData.url} and fill the form with:
 - First Name: ${formData.firstName}
 - Last Name: ${formData.lastName}
-- Full Name: ${formData.fullName}
-- Username: ${formData.username}
 - Email: ${formData.email}
 - Password: ${formData.password}
 - Confirm Password: ${formData.confirmPassword}
