@@ -340,6 +340,13 @@ Now, follow these enhanced rules to complete the user's request reliably with vi
 });
 
 async function chatWithAgent(query) {
+    console.log(`\n █████╗ ██╗     █████╗  ██████╗ ███████╗███╗   ██╗████████╗     ██████╗██╗     ██╗
+██╔══██╗██║    ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝    ██╔════╝██║     ██║
+███████║██║    ███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║       ██║     ██║     ██║
+██╔══██║██║    ██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║       ██║     ██║     ██║
+██║  ██║██║    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║       ╚██████╗███████╗██║
+╚═╝  ╚═╝╚═╝    ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝        ╚═════╝╚══════╝╚═╝
+                                                                                  \n`);
     const runner = new Runner({ modelProvider });
     try {
         const response = await runner.run(websiteAutomationAgent, query, {
