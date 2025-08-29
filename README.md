@@ -83,5 +83,10 @@ The script will launch Chrome, navigate to the target page, fill out the form, a
 - [zod](https://www.npmjs.com/package/zod)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 
+
+## Video Demo
+
+[Video Link](https://youtu.be/YoewXoeA9Tk)
+
 ## License
 MIT
